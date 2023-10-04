@@ -2,29 +2,50 @@ import NavBarSearch from "./NavbarSerach";
 import BasicLineChartComponent, { BasicLineChartOptions } from './BasicLineChart';
 import WaterfallChartComponent, { WaterfallChartOptions } from './WaterfallChart';
 import PieChartComponent, { PieChartOptions } from './PieChart';
+import { useState, useEffect } from "react";
 
 function App() {
-  const basicLineChartOptions: BasicLineChartOptions = {
-    grid: {
-      left: '15%',
-      right: '15%',
-      bottom: '5%',
-      containLabel: true,
-    },
-    xAxis: {
-      type: 'category',
-      data: ['Ростов', 'любит', 'кушать', 'вкусную', 'липецкую', 'розовянку',],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: 'line',
-      },
-    ],
-  };
+  const [bsLineChartOpt, setChartOptions] = useState({});
+  useEffect(() => {
+    const api = async () => {
+      const requestData = {
+        "operation_type": "OperationAgentDeliveredToCustomer"
+      };
+      const data = await fetch("http://185.255.132.73:8000/operation/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(requestData)
+      });
+      const jsonData = await data.json();
+      const basicLineChartOptions: BasicLineChartOptions = {
+        grid: {
+          left: '15%',
+          right: '15%',
+          bottom: '5%',
+          containLabel: true,
+        },
+        xAxis: {
+          type: 'category',
+          data: jsonData.xAxis,
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            data: jsonData.series,
+            type: 'line',
+          },
+        ],
+      };
+      setChartOptions(basicLineChartOptions);
+    };
+
+    api();
+  }, []);
 
   const waterfallChartOptions: WaterfallChartOptions = {
     title: {
@@ -148,7 +169,7 @@ function App() {
   return (
     <>
       <NavBarSearch />
-      <BasicLineChartComponent option={basicLineChartOptions} width="100%" height="250px" />
+      <BasicLineChartComponent option={bsLineChartOpt} width="100%" height="250px" />
       <WaterfallChartComponent option={waterfallChartOptions} width="100%" height="400px" />
       <PieChartComponent option={pieChartOptions} width="100%" height="400px" />
     </>
