@@ -12,44 +12,54 @@ function App() {
   const [bsLineChartOpt, setChartOptions] = useState({});
   useEffect(() => {
     const api = async () => {
-      const requestData = {
-        "operation_type": "OperationAgentDeliveredToCustomer"
-      };
-      const data = await fetch("http://185.255.132.73:8000/operation/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify(requestData)
-      });
-      const jsonData = await data.json();
-      const basicLineChartOptions: BasicLineChartOptions = {
-        grid: {
-          left: '15%',
-          right: '15%',
-          bottom: '5%',
-          containLabel: true,
-        },
-        xAxis: {
-          type: 'category',
-          data: jsonData.xAxis,
-        },
-        yAxis: {
-          type: 'value',
-        },
-        series: [
+      try {
+        const requestData = {
+          "operation_type": "OperationAgentDeliveredToCustomer"
+        };
+        const data = await fetch(
+          "http://185.255.132.73:8000/operation/",
           {
-            data: jsonData.series,
-            type: 'line',
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(requestData)
+          }
+        );
+        if (!data.ok) {
+          throw new Error(`HTTP Ошибка! Статус: ${data.status}`);
+        }
+        const jsonData = await data.json();
+        const basicLineChartOptions: BasicLineChartOptions = {
+          grid: {
+            left: '15%',
+            right: '15%',
+            bottom: '5%',
+            containLabel: true,
           },
-        ],
-      };
-      setChartOptions(basicLineChartOptions);
+          xAxis: {
+            type: 'category',
+            data: jsonData.xAxis,
+          },
+          yAxis: {
+            type: 'value',
+          },
+          series: [
+            {
+              data: jsonData.series,
+              type: 'line',
+            },
+          ],
+        };
+        setChartOptions(basicLineChartOptions);
+      } catch (error) {
+        console.error("Ошибка:", error);
+      }
     };
-
     api();
   }, []);
+
 
   const waterfallChartOptions: WaterfallChartOptions = {
     title: {
