@@ -1,8 +1,12 @@
-import NavBarSearch from "./NavbarSerach";
-import BasicLineChartComponent, { BasicLineChartOptions } from './BasicLineChart';
-import WaterfallChartComponent, { WaterfallChartOptions } from './WaterfallChart';
-import PieChartComponent, { PieChartOptions } from './PieChart';
+import NavBarSearch from "actions/components/Navbar/NavbarSerach";
+import BasicLineChartComponent, { BasicLineChartOptions } from 'actions/components/Charts/BasicLineChart/BasicLineChart';
+import WaterfallChartComponent, { WaterfallChartOptions } from 'actions/components/Charts/WaterfallChart/WaterfallChart';
+import PieChartComponent, { PieChartOptions } from 'actions/components/Charts/PieChart/PieChart';
 import { useState, useEffect } from "react";
+import LoginPage from "actions/components/LoginAuth/LoginPage";
+import { Routes, Route } from 'react-router-dom';
+
+
 
 function App() {
   const [bsLineChartOpt, setChartOptions] = useState({});
@@ -169,9 +173,19 @@ function App() {
   return (
     <>
       <NavBarSearch />
-      <BasicLineChartComponent option={bsLineChartOpt} width="100%" height="250px" />
-      <WaterfallChartComponent option={waterfallChartOptions} width="100%" height="400px" />
-      <PieChartComponent option={pieChartOptions} width="100%" height="400px" />
+      <Routes>
+        <Route path="/login" element={<LoginPage mode="signin" />} />
+        <Route
+          path="/charts"
+          element={
+            <>
+              <BasicLineChartComponent option={bsLineChartOpt} width="100%" height="250px" />
+              <WaterfallChartComponent option={waterfallChartOptions} width="100%" height="400px" />
+              <PieChartComponent option={pieChartOptions} width="100%" height="400px" />
+            </>
+          }
+        />
+      </Routes>
     </>
   );
 }
