@@ -13,7 +13,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 function App() {
   const data = ["OperationAgentDeliveredToCustomer", "Item 2", "Item 3", "Item 4", "Item 5"];
   const [requestData, setRequestData] = useState(data[0])
-  const [bsLineChartOpt, setChartOptions] = useState({});
+  const [bsLineChartOpt, setChartOptions] = useState<BasicLineChartOptions>({});
   const [currentIndex, setCurrentIndex] = useState(0);
   const handleCarouselChange = (index: number) => {
     setRequestData(data[index]);
@@ -24,7 +24,7 @@ function App() {
     const fetchData = async () => {
       try {
         const jsonData = await fetchJsonData(apiUrl, "POST", requestData);
-        const basicLineChartOptions = {
+        const basicLineChartOptions: BasicLineChartOptions = {
           grid: {
             left: '15%',
             right: '15%',
