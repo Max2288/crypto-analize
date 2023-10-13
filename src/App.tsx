@@ -5,17 +5,22 @@ import PieChartComponent, { PieChartOptions } from 'actions/components/Charts/Pi
 import { useState, useEffect } from "react";
 import LoginPage from "actions/components/LoginAuth/LoginPage";
 import { Routes, Route } from 'react-router-dom';
-
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 
 function App() {
+  const data = ["OperationAgentDeliveredToCustomer", "Item 2", "Item 3", "Item 4", "Item 5"];
+  const [requestData, setRequestData] = useState(data[0])
   const [bsLineChartOpt, setChartOptions] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const handleCarouselChange = (index: number) => {
+    setRequestData(data[index]);
+    setCurrentIndex(index);
+  };
   useEffect(() => {
     const api = async () => {
       try {
-        const requestData = {
-          "operation_type": "OperationAgentDeliveredToCustomer"
-        };
         const data = await fetch(
           "http://185.255.132.73:8000/operation/",
           {
@@ -58,7 +63,7 @@ function App() {
       }
     };
     api();
-  }, []);
+  }, [requestData]);
 
 
   const waterfallChartOptions: WaterfallChartOptions = {
@@ -189,6 +194,23 @@ function App() {
           path="/charts"
           element={
             <>
+              <Carousel
+                showStatus={false}
+                showIndicators={false}
+                showArrows={true}
+                selectedItem={currentIndex}
+                onChange={handleCarouselChange}
+              >
+                {
+                  data.map(
+                    (item, index) => (
+                      <div key={index}>
+                        <h2>{item}</h2>
+                      </div>
+                    )
+                  )
+                }
+              </Carousel>
               <BasicLineChartComponent option={bsLineChartOpt} width="100%" height="250px" />
               <WaterfallChartComponent option={waterfallChartOptions} width="100%" height="400px" />
               <PieChartComponent option={pieChartOptions} width="100%" height="400px" />
