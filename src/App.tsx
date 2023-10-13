@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import LoginPage from "actions/components/LoginAuth/LoginPage";
 import { Routes, Route } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
+import { fetchJsonData } from "actions/utils/post";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 
@@ -19,24 +20,11 @@ function App() {
     setCurrentIndex(index);
   };
   useEffect(() => {
-    const api = async () => {
+    const apiUrl = "http://185.255.132.73:8000/operation/";
+    const fetchData = async () => {
       try {
-        const data = await fetch(
-          "http://185.255.132.73:8000/operation/",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify(requestData)
-          }
-        );
-        if (!data.ok) {
-          throw new Error(`HTTP Ошибка! Статус: ${data.status}`);
-        }
-        const jsonData = await data.json();
-        const basicLineChartOptions: BasicLineChartOptions = {
+        const jsonData = await fetchJsonData(apiUrl, "POST", requestData);
+        const basicLineChartOptions = {
           grid: {
             left: '15%',
             right: '15%',
@@ -62,7 +50,8 @@ function App() {
         console.error("Ошибка:", error);
       }
     };
-    api();
+
+    fetchData();
   }, [requestData]);
 
 
