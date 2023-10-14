@@ -21,9 +21,13 @@ function App() {
   };
   useEffect(() => {
     const apiUrl = "http://185.255.132.73:8000/operation/";
+    const headers = {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    }
     const fetchData = async () => {
       try {
-        const jsonData = await fetchJsonData(apiUrl, "POST", requestData);
+        const jsonData = await fetchJsonData(apiUrl, "POST", requestData, headers);
         const basicLineChartOptions: BasicLineChartOptions = {
           grid: {
             left: '15%',
