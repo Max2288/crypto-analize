@@ -1,21 +1,31 @@
 import { useState, FormEvent } from "react"
 import './LoginPage.css';
+import { fetchJsonData, fetchEncodedData } from "actions/utils/post";
 
 interface LoginPageProps {
     mode: string;
 }
 
-interface FormData {
+interface RegData {
     surname: string;
     name: string;
     email: string;
     password: string;
 }
 
+interface AuthData {
+    username: string;
+    password: string;
+}
+
+
 export default function LoginPage(props: LoginPageProps) {
     let [authMode, setAuthMode] = useState(props.mode);
-
-    const [formData, setFormData] = useState<FormData>({
+    const [authData, setAuthData] = useState<AuthData>({
+        username: "",
+        password: ""
+    });
+    const [regData, setRegData] = useState<RegData>({
         surname: '',
         name: '',
         email: '',
@@ -26,19 +36,62 @@ export default function LoginPage(props: LoginPageProps) {
         setAuthMode(authMode === "signin" ? "signup" : "signin")
     };
 
-    const regBackend = (data: FormData) => {
+    const regBackend = (data: RegData) => {
         console.log(data);
+        const fetchData = async () => {
+            const apiUrl = "http://185.255.132.73:8000/auth/register"
+            const requestData = {
+                ...data,
+                "is_active": true,
+                "is_superuser": false,
+                "is_verified": false,
+                "ozon_client_id": 0,
+                "ozon_api_key": "string"
+            }
+            const headers = {
+                "Content-Type": "application/json",
+                "accept": "application/json"
+            }
+            try {
+                const jsonData = await fetchJsonData(apiUrl, "POST", requestData, headers);
+            } catch (error) {
+                console.error("Ошибка:", error);
+            }
+        }
+        fetchData();
+    };
+
+    const authBackend = (data: AuthData) => {
+        console.log(data);
+        const fetchData = async () => {
+            const apiUrl = "http://185.255.132.73:8000/auth/jwt/login"
+            const headers = {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Accept": "application/json"
+            }
+            try {
+                const headersData = await fetchEncodedData(apiUrl, "POST", data, headers);
+                console.log(headersData)
+            } catch (error) {
+                console.error("Ошибка:", error);
+            }
+        }
+        fetchData();
     };
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
-        regBackend(formData);
+        regBackend(regData);
     };
+    const handleSubmitAuth = (event: FormEvent) => {
+        event.preventDefault();
+        authBackend(authData);
+    }
 
     if (authMode === "signin") {
         return (
             <div className="Auth-form-container">
-                <form className="Auth-form" onSubmit={handleSubmit}>
+                <form className="Auth-form" onSubmit={handleSubmitAuth}>
                     <div className="Auth-form-content">
                         <h3 className="Auth-form-title">Вход</h3>
                         <div className="text-center">
@@ -54,8 +107,8 @@ export default function LoginPage(props: LoginPageProps) {
                                 className="form-control mt-1"
                                 placeholder="Ivan@yandex.ru"
                                 name="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                value={authData.username}
+                                onChange={(e) => setAuthData({ ...authData, username: e.target.value })}
                                 required={true}
                             />
                         </div>
@@ -64,10 +117,10 @@ export default function LoginPage(props: LoginPageProps) {
                             <input
                                 type="password"
                                 className="form-control mt-1"
-                                placeholder="Введите почту"
+                                placeholder="Введите пароль"
                                 name="password"
-                                value={formData.password}
-                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                value={authData.password}
+                                onChange={(e) => setAuthData({ ...authData, password: e.target.value })}
                                 required={true}
                             />
                         </div>
@@ -103,8 +156,8 @@ export default function LoginPage(props: LoginPageProps) {
                             className="form-control mt-1"
                             placeholder="Иван"
                             name="name"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            value={regData.name}
+                            onChange={(e) => setRegData({ ...regData, name: e.target.value })}
                             required={true}
                         />
                     </div>
@@ -115,8 +168,8 @@ export default function LoginPage(props: LoginPageProps) {
                             className="form-control mt-1"
                             placeholder="Иванов"
                             name="surname"
-                            value={formData.surname}
-                            onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
+                            value={regData.surname}
+                            onChange={(e) => setRegData({ ...regData, surname: e.target.value })}
                             required={true}
                         />
                     </div>
@@ -127,8 +180,8 @@ export default function LoginPage(props: LoginPageProps) {
                             className="form-control mt-1"
                             placeholder="Введите почту"
                             name="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            value={regData.email}
+                            onChange={(e) => setRegData({ ...regData, email: e.target.value })}
                             required={true}
                         />
                     </div>
@@ -139,8 +192,8 @@ export default function LoginPage(props: LoginPageProps) {
                             className="form-control mt-1"
                             placeholder="Введите пароль"
                             name="password"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            value={regData.password}
+                            onChange={(e) => setRegData({ ...regData, password: e.target.value })}
                             required={true}
                         />
                     </div>
