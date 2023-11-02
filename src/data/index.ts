@@ -1,7 +1,9 @@
-// TODO: Данный файл необходим, чтобы вынести все тестовые данные и не нагружать основонй функционал лишним кодом
-
 import {WaterfallChartOptions} from "../actions/components/Charts/WaterfallChart/WaterfallChart";
 import {PieChartOptions} from "../actions/components/Charts/PieChart/PieChart";
+import carolina from 'actions/static/images/carolina.jpg'
+import matX from 'actions/static/images/matX.jpg'
+import starAdmin from 'actions/static/images/starAdmin.jpg'
+
 
 export const waterfallChartOptions: WaterfallChartOptions = {
     title: {
@@ -124,3 +126,24 @@ export const pieChartOptions: PieChartOptions = {
 };
 
 export const data = ["OperationAgentDeliveredToCustomer", "Item 2", "Item 3", "Item 4", "Item 5"];
+
+export const projects = [
+    {
+        id: 1,
+        title: 'Carolina',
+        description: 'Проект по аналитике биржи',
+        image: carolina,
+    },
+    {
+        id: 2,
+        title: 'matX',
+        description: 'Сбор статистики по покупкам',
+        image: matX,
+    },
+    {
+        id: 3,
+        title: 'starAdmin',
+        description: 'Прогноз прибыли для компании',
+        image: starAdmin,
+    },
+];
