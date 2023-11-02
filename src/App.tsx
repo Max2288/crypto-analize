@@ -17,14 +17,19 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const apiUrl = "https://seagulltech.ru/protected-route/";
+    const apiUrl = "https://seagulltech.ru/data/operation/";
     const headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
     }
     const fetchData = async () => {
       try {
-        const jsonData = await fetchJsonData(apiUrl, "POST", requestData, headers);
+        const jsonData = await fetchJsonData(
+          apiUrl,
+          "POST",
+          {'operation_type': requestData}, 
+          headers
+        );
         const basicLineChartOptions: BasicLineChartOptions = {
           grid: {
             left: '15%',
