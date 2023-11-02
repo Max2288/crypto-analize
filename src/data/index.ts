@@ -123,4 +123,11 @@ export const pieChartOptions: PieChartOptions = {
     ]
 };
 
-export const data = ["OperationAgentDeliveredToCustomer", "Item 2", "Item 3", "Item 4", "Item 5"];
+export const data = [
+    'MarketplaceRedistributionOfAcquiringOperation',
+    'OperationMarketplaceDefectRate',
+    'OperationAgentDeliveredToCustomer',
+    'OperationReturnGoodsFBSofRMS',
+    'OperationModerationCounterfeitGoods',
+    'ClientReturnAgentOperation'
+];
