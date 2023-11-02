@@ -17,7 +17,7 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const apiUrl = "http://185.255.132.73:8000/operation/";
+    const apiUrl = "https://seagulltech.ru/protected-route/";
     const headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
