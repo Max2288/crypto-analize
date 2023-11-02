@@ -1,5 +1,5 @@
-import {WaterfallChartOptions} from "../actions/components/Charts/WaterfallChart/WaterfallChart";
-import {PieChartOptions} from "../actions/components/Charts/PieChart/PieChart";
+import { WaterfallChartOptions } from "../actions/components/Charts/WaterfallChart/WaterfallChart";
+import { PieChartOptions } from "../actions/components/Charts/PieChart/PieChart";
 import carolina from 'actions/static/images/carolina.jpg'
 import matX from 'actions/static/images/matX.jpg'
 import starAdmin from 'actions/static/images/starAdmin.jpg'
@@ -125,7 +125,14 @@ export const pieChartOptions: PieChartOptions = {
     ]
 };
 
-export const data = ["OperationAgentDeliveredToCustomer", "Item 2", "Item 3", "Item 4", "Item 5"];
+export const data = [
+    'MarketplaceRedistributionOfAcquiringOperation',
+    'OperationMarketplaceDefectRate',
+    'OperationAgentDeliveredToCustomer',
+    'OperationReturnGoodsFBSofRMS',
+    'OperationModerationCounterfeitGoods',
+    'ClientReturnAgentOperation'
+];
 
 export const projects = [
     {
