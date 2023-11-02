@@ -1,4 +1,5 @@
 import { useState, FormEvent } from "react"
+import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import { fetchJsonData, fetchEncodedData } from "actions/utils/post";
 
@@ -136,7 +137,7 @@ export default function LoginPage(props: LoginPageProps) {
                             </button>
                         </div>
                         <p className="text-center mt-2">
-                            Забыли <a href="/forgot">пароль?</a>
+                            Забыли <Link to="/forgot">пароль?</Link>
                         </p>
                     </div>
                 </form>
