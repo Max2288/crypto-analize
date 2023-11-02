@@ -45,7 +45,7 @@ export default function LoginPage(props: LoginPageProps) {
     const regBackend = (data: RegData) => {
         console.log(data);
         const fetchData = async () => {
-            const apiUrl = "http://185.255.132.73:8000/auth/register"
+            const apiUrl = "https://seagulltech.ru/auth/register"
             const requestData = {
                 ...data,
                 "is_active": true,
@@ -70,7 +70,7 @@ export default function LoginPage(props: LoginPageProps) {
     const authBackend = (data: AuthData) => {
         console.log(data);
         const fetchData = async () => {
-            const apiUrl = "http://185.255.132.73:8000/auth/jwt/login"
+            const apiUrl = "https://seagulltech.ru/auth/jwt/login"
             const headers = {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "application/json"
