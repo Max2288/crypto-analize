@@ -20,17 +20,23 @@ interface AuthData {
 
 
 export default function LoginPage(props: LoginPageProps) {
-    let [authMode, setAuthMode] = useState(props.mode);
-    const [authData, setAuthData] = useState<AuthData>({
-        username: "",
-        password: ""
-    });
-    const [regData, setRegData] = useState<RegData>({
-        surname: '',
-        name: '',
-        email: '',
-        password: '',
-    });
+    const [authMode, setAuthMode] = useState(props.mode);
+
+    const [authData, setAuthData] = useState<AuthData>(
+        {
+            username: "",
+            password: ""
+        }
+    );
+
+    const [regData, setRegData] = useState<RegData>(
+        {
+            surname: '',
+            name: '',
+            email: '',
+            password: '',
+        }
+    );
 
     const changeAuthMode = () => {
         setAuthMode(authMode === "signin" ? "signup" : "signin")
