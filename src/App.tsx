@@ -1,4 +1,5 @@
 import NavBarSearch from "actions/components/Navbar/NavbarSerach";
+import SinglePage from "actions/components/SinglePage/SinglePage";
 import BasicLineChartComponent, { BasicLineChartOptions } from 'actions/components/Charts/BasicLineChart/BasicLineChart';
 import WaterfallChartComponent from 'actions/components/Charts/WaterfallChart/WaterfallChart';
 import PieChartComponent from 'actions/components/Charts/PieChart/PieChart';
@@ -10,7 +11,7 @@ import { fetchJsonData } from "actions/utils/post";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import {data, pieChartOptions, waterfallChartOptions } from "data";
 
-// TODO: вынес все тестовые данные в директорию src/data
+
 function App() {
   const [requestData, setRequestData] = useState(data[0])
   const [bsLineChartOpt, setChartOptions] = useState<BasicLineChartOptions>({});
@@ -55,8 +56,6 @@ function App() {
     fetchData();
   }, [requestData]);
 
-  // TODO: спустил обработчики ниже хуков, так как есть внегласное правило "в начале пишем хуки, а далее ф-ции"
-  // TODO: также явно указал, что ф-ция ничего не возвращает
   const handleCarouselChange = (index: number): void => {
     setRequestData(data[index]);
     setCurrentIndex(index);
@@ -94,6 +93,7 @@ function App() {
             </>
           }
         />
+        <Route path="/" element={<SinglePage/>} />
       </Routes>
     </>
   );
