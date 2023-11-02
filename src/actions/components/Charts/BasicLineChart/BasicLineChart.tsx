@@ -46,7 +46,7 @@ const BasicLineChartComponent: React.FC<BasicLineChartProps> = ({
       };
     }
   }, [chartRef, option]);
-
+  // TODO: по хорошему все стоит вынести в файл css, а не писать инлайновые стили
   return <div ref={chartRef} style={{ width, height }} />;
 };
 
