@@ -15,7 +15,7 @@ function NavBarSearch() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
-        <Link to="/" className="navbar-brand">Тут что-то должно быть</Link>
+        <Link to="/" className="navbar-brand">Seagull Tech</Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
