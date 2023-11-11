@@ -70,7 +70,8 @@ function App() {
     <>
       <NavBarSearch />
       <Routes>
-        <Route path="/login" element={<LoginPage mode="signin" />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<LoginPage />} />
         <Route
           path="/charts"
           element={
