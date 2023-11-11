@@ -20,7 +20,6 @@ const RegisterComponent: React.FC = () => {
   });
 
   const regBackend = (data: RegData) => {
-    console.log(data);
     const fetchData = async () => {
         const apiUrl = "https://seagulltech.ru/auth/register"
         const requestData = {
