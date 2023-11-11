@@ -4,7 +4,8 @@ import BasicLineChartComponent, { BasicLineChartOptions } from 'actions/componen
 import WaterfallChartComponent from 'actions/components/Charts/WaterfallChart/WaterfallChart';
 import PieChartComponent from 'actions/components/Charts/PieChart/PieChart';
 import { useState, useEffect } from "react";
-import LoginPage from "actions/components/LoginAuth/LoginPage";
+import LoginComponent from "actions/components/LoginAuth/LoginComponent";
+import RegisterComponent from "actions/components/LoginAuth/RegisterComponent";
 import { Routes, Route } from 'react-router-dom';
 import { Carousel } from 'react-responsive-carousel';
 import { fetchJsonData } from "actions/utils/post";
@@ -70,7 +71,8 @@ function App() {
     <>
       <NavBarSearch />
       <Routes>
-        <Route path="/login" element={<LoginPage mode="signin" />} />
+        <Route path="/login" element={<LoginComponent />} />
+        <Route path="/register" element={<RegisterComponent />} />
         <Route
           path="/charts"
           element={
