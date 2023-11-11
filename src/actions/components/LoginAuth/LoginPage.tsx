@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 import { fetchJsonData, fetchEncodedData } from "actions/utils/post";
 
@@ -22,6 +22,8 @@ interface AuthData {
 
 export default function LoginPage(props: LoginPageProps) {
     const [authMode, setAuthMode] = useState(props.mode);
+
+    const navigate = useNavigate();
 
     const [authData, setAuthData] = useState<AuthData>(
         {
@@ -78,7 +80,7 @@ export default function LoginPage(props: LoginPageProps) {
             }
             try {
                 const headersData = await fetchEncodedData(apiUrl, "POST", data, headers);
-                console.log(headersData)
+                navigate('/charts');
             } catch (error) {
                 console.error("Ошибка:", error);
             }
