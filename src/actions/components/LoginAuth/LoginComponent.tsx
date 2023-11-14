@@ -19,7 +19,7 @@ const LoginComponent: React.FC = () => {
     const apiUrl = 'https://seagulltech.ru/auth/jwt/login';
     const headers = {
       'Content-Type': 'application/x-www-form-urlencoded',
-      Accept: 'application/json',
+      'Accept': 'application/json',
     };
 
     try {

@@ -125,14 +125,14 @@ export const pieChartOptions: PieChartOptions = {
     ]
 };
 
-export const data = [
-    'MarketplaceRedistributionOfAcquiringOperation',
-    'OperationMarketplaceDefectRate',
-    'OperationAgentDeliveredToCustomer',
-    'OperationReturnGoodsFBSofRMS',
-    'OperationModerationCounterfeitGoods',
-    'ClientReturnAgentOperation'
-];
+export const data = {
+    'MarketplaceRedistributionOfAcquiringOperation': 'Оплата эквайринга',
+    'OperationMarketplaceDefectRate': 'Услуга за обработку операционных ошибок продавца',
+    'OperationAgentDeliveredToCustomer': 'Доставка покупателю',
+    'OperationReturnGoodsFBSofRMS': 'Доставка и обработка возврата, отмены, невыкупа',
+    'OperationModerationCounterfeitGoods': 'Модерация поддельных товаров',
+    'ClientReturnAgentOperation': 'Получение возврата, отмены, невыкупа от покупателя'
+};
 
 export const projects = [
     {

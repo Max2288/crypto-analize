@@ -14,7 +14,8 @@ import {data, pieChartOptions, waterfallChartOptions } from "data";
 
 
 function App() {
-  const [requestData, setRequestData] = useState(data[0])
+  const dataKeys = Object.keys(data)
+  const [requestData, setRequestData] = useState(dataKeys[0])
   const [bsLineChartOpt, setChartOptions] = useState<BasicLineChartOptions>({});
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -63,7 +64,7 @@ function App() {
   }, [requestData]);
 
   const handleCarouselChange = (index: number): void => {
-    setRequestData(data[index]);
+    setRequestData(dataKeys[index]);
     setCurrentIndex(index);
   };
 
@@ -85,13 +86,11 @@ function App() {
                 onChange={handleCarouselChange}
               >
                 {
-                  data.map(
-                    (item, index) => (
-                      <div key={index}>
-                        <h2>{item}</h2>
-                      </div>
-                    )
-                  )
+                  Object.values(data).map((value, index) => (
+                    <div key={index}>
+                      <h2>{value}</h2>
+                    </div>
+                  ))
                 }
               </Carousel>
               <BasicLineChartComponent option={bsLineChartOpt} width="100%" height="250px" />
