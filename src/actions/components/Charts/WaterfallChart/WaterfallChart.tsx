@@ -23,12 +23,12 @@ echarts.use([
 
 
 export type WaterfallChartOptions = {
-    title: TitleComponentOption;
-    tooltip: TooltipComponentOption;
-    grid: GridComponentOption;
-    xAxis: { [key: string]: any };
-    yAxis: { [key: string]: any };
-    series: BarSeriesOption[];
+    title?: TitleComponentOption;
+    tooltip?: TooltipComponentOption;
+    grid?: GridComponentOption;
+    xAxis?: { [key: string]: any };
+    yAxis?: { [key: string]: any };
+    series?: BarSeriesOption[];
 };
 
 interface WaterfallChartProps {
@@ -36,8 +36,6 @@ interface WaterfallChartProps {
     width?: string;
     height?: string;
 }
-// TODO: необходимо использовать единообразные ф-ции для компонентов, так как это может в будущем плохую шутку
-// TODO: либо expression, либо declaration
 
 const WaterfallChartComponent: React.FC<WaterfallChartProps> = ({
     option,
@@ -60,7 +58,7 @@ const WaterfallChartComponent: React.FC<WaterfallChartProps> = ({
             };
         }
     }, [chartRef, option]);
-    // TODO: по хорошему все стоит вынести в файл css, а не писать инлайновые стили
+
     return <div ref={chartRef} style={{ width, height }} />;
 };
 
