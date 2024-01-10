@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react"
 import { Link } from 'react-router-dom';
 import './LoginPage.css';
 import { fetchJsonData, fetchEncodedData } from "actions/utils/post";
+import { useNavigate  } from 'react-router-dom';
 
 interface LoginPageProps {
     mode: string;
@@ -21,6 +22,7 @@ interface AuthData {
 
 
 export default function LoginPage(props: LoginPageProps) {
+    const navigate = useNavigate();
     const [authMode, setAuthMode] = useState(props.mode);
 
     const [authData, setAuthData] = useState<AuthData>(
@@ -44,7 +46,6 @@ export default function LoginPage(props: LoginPageProps) {
     };
 
     const regBackend = (data: RegData) => {
-        console.log(data);
         const fetchData = async () => {
             const apiUrl = "https://seagulltech.ru/auth/register"
             const requestData = {
@@ -61,15 +62,16 @@ export default function LoginPage(props: LoginPageProps) {
             }
             try {
                 const jsonData = await fetchJsonData(apiUrl, "POST", requestData, headers);
+                changeAuthMode()
             } catch (error) {
                 console.error("Ошибка:", error);
             }
         }
         fetchData();
     };
-
+    
     const authBackend = (data: AuthData) => {
-        console.log(data);
+        
         const fetchData = async () => {
             const apiUrl = "https://seagulltech.ru/auth/jwt/login"
             const headers = {
@@ -78,7 +80,7 @@ export default function LoginPage(props: LoginPageProps) {
             }
             try {
                 const headersData = await fetchEncodedData(apiUrl, "POST", data, headers);
-                console.log(headersData)
+                navigate('/')
             } catch (error) {
                 console.error("Ошибка:", error);
             }
