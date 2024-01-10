@@ -1,5 +1,3 @@
-// TODO: поменял расширение файла на .ts, так как в тут полностью отсуствует верстка
-
 export const fetchJsonData = async (url: string, method: string, requestData: any, headers: any) => {
     try {
         const response = await fetch(url, {
@@ -20,6 +18,7 @@ export const fetchJsonData = async (url: string, method: string, requestData: an
         throw error;
     }
 };
+
 export const fetchEncodedData = async (url: string, method: string, requestData: any, headers: any) => {
     try {
         const response = await fetch(url, {
