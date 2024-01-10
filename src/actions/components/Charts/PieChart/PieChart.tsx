@@ -21,13 +21,17 @@ echarts.use([
     LabelLayout
 ]);
 
-// TODO: необходимо единнобразие в плане типизации проекта, потому что в одном месте type, а в другом interface
 export type PieChartOptions = {
     backgroundColor?: string;
-    title: TitleComponentOption;
-    tooltip: TooltipComponentOption;
-    visualMap: VisualMapComponentOption;
-    series: PieSeriesOption[];
+    title?: TitleComponentOption;
+    tooltip?: TooltipComponentOption;
+    visualMap?: VisualMapComponentOption;
+    series?: PieSeriesOption[];
+};
+
+export type PieChartData = {
+    value: number;
+    name: string;
 };
 
 interface PieChartProps {
@@ -57,7 +61,7 @@ const PieChartComponent: React.FC<PieChartProps> = ({
             };
         }
     }, [chartRef, option]);
-    // TODO: по хорошему все стоит вынести в файл css, а не писать инлайновые стили
+
     return <div ref={chartRef} style={{ width, height }} />;
 };
 
