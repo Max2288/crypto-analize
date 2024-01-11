@@ -11,7 +11,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { fetchJsonData } from "actions/utils/post";
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { data, dataTranslate } from "data";
-
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 function App() {
   const [requestData, setRequestData] = useState(data[0])
@@ -19,6 +19,39 @@ function App() {
   const [pChartOpt, setPieChartOptions] = useState<PieChartOptions>({});
   const [wfChartOpt, setWaterfallChartOptions] = useState<WaterfallChartOptions>({});
   const [currentIndex, setCurrentIndex] = useState(0);
+  const arrowStyles: CSSProperties = {
+    position: 'absolute',
+    zIndex: 2,
+    top: 'calc(50% - 15px)',
+    width: 30,
+    height: 30,
+    cursor: 'pointer',
+  };
+  interface ArrowButtonProps {
+    onClickHandler: () => void; // Specify the type of onClickHandler prop
+    label: string;
+    direction: string;
+  }
+  
+  const ArrowButton: React.FC<ArrowButtonProps> = ({ onClickHandler, label, direction }) => (
+    <button
+      type="button"
+      onClick={onClickHandler}
+      title={label}
+      style={{
+        ...arrowStyles,
+        [direction]: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        borderRadius: '50%',
+      }}
+    >
+      {direction === 'left' ? <FaArrowLeft /> : <FaArrowRight />}
+    </button>
+  );
 
   useEffect(() => {
     const apiUrl = "https://seagulltech.ru/data/operation/";
@@ -187,14 +220,7 @@ function App() {
     setCurrentIndex(index);
   };
 
-  const arrowStyles: CSSProperties = {
-    position: 'absolute',
-    zIndex: 2,
-    top: 'calc(50% - 15px)',
-    width: 30,
-    height: 30,
-    cursor: 'pointer',
-  };
+
 
   return (
     <>
@@ -213,18 +239,11 @@ function App() {
                 selectedItem={currentIndex}
                 onChange={handleCarouselChange}
                 renderArrowNext={(onClickHandler, hasNext, label) =>
-                  hasNext && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{ ...arrowStyles, right: 15 }}>
-                      +
-                    </button>
-                  )
+                  hasNext && <ArrowButton onClickHandler={onClickHandler} label={label} direction="right" />
                 }
+                
                 renderArrowPrev={(onClickHandler, hasPrev, label) =>
-                  hasPrev && (
-                    <button type="button" onClick={onClickHandler} title={label} style={{ ...arrowStyles, left: 15 }}>
-                      -
-                    </button>
-                  )
+                  hasPrev && <ArrowButton onClickHandler={onClickHandler} label={label} direction="left" />
                 }
               >
                 {
